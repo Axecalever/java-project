@@ -1,5 +1,5 @@
 pipeline {
-	agent {label 'slave_node'}	
+	agent {label 'centos_slave'}	
 	
 	options {
 		buildDiscarder(logRotator(numToKeepStr:'2', artifactNumToKeepStr:'1'))
