@@ -1,5 +1,5 @@
 pipeline {
-	agent {label 'master_node'}	
+	agent {label 'centos_slave'}	
 	
 	stages {
 			stage('Unit Test') {
