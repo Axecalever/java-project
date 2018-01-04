@@ -1,10 +1,20 @@
 pipeline {
-	agent 'centos_slave'	
+	agent {label 'master_node'}	
 
 	stages {
-			stage('build') {
+			stage('PRINT') {
 				steps {				
-					sh 'ant -f build.xml -v'
+					echo '${JOB_NAME}'
+				}		
+			}
+			stage('WRITE') {
+				steps {				
+					sh 'cat {BUILD_NAME} > build_number'
+				}		
+			}
+			stage('READ') {
+				steps {				
+					sh 'cat build_number'
 				}		
 			}
 
