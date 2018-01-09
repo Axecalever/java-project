@@ -17,7 +17,7 @@ pipeline {
 			}
 			
 			stage('deploy') {
-				agent {label 'centos_slave'}				
+				agent {label 'master_node'}				
 				steps {				
 					sh 'cp dist/rectangle_${BUILD_NUMBER}.jar /var/www/html/rectangles/all'
 				}		
