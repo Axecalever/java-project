@@ -39,6 +39,7 @@ pipeline {
 			}
 			
 			stage('Promote to Green') {
+				agent {label 'centos_slave'}
 				steps {
 					sh 'cp /var/www/html/rectangles/all/rectangle_${BUILD_NUMBER}.jar /var/www/html/rectangles/green/ '
 				}
