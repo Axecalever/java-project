@@ -35,11 +35,6 @@ pipeline {
 				steps {				
 					sh 'wget http://icemanxflow4.mylabserver.com/rectangles/all/rectangle_${BUILD_NUMBER}.jar'
 					sh 'java -jar rectangle_${BUILD_NUMBER}.jar 3 4'
-				}
-				post {
-					always {
-						archiveArtifacts artifacts : 'dist/*.jar', fingerprint: true
-					}
 				}		
 			}
 	}	
