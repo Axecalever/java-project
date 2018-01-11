@@ -66,8 +66,9 @@ pipeline {
 					echo 'Merging development into Master Branch'
 					sh 'git merge development'
 					sh 'git push origin master '
-				}	sh "git tag rectangle-${MAJOR_VERSION}.${BUILD_NUMBER}"
+					sh "git tag rectangle-${MAJOR_VERSION}.${BUILD_NUMBER}"
 					sh 'git push origin rectangle-${MAJOR_VERSION}.${BUILD_NUMBER}'
+				}
 			}
 	}	
 }		
