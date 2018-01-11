@@ -1,5 +1,8 @@
 pipeline {
 	agent none
+	environment {
+		MAJOR_VERSION = 1
+	}
 	
 	stages {
 			stage('Unit Test') {
@@ -19,22 +22,23 @@ pipeline {
 			stage('deploy') {
 				agent {label 'centos_slave'}				
 				steps {				
-					sh 'cp dist/rectangle_${BUILD_NUMBER}.jar /var/www/html/rectangles/all/${BRANCH_NAME}'
+					sh 'cp dist/rectangle_${MAJOR_VERSION}.${BUILD_NUMBER}.jar /var/www/html/rectangles/all/${BRANCH_NAME}'
 				}		
 			}		
 			
 			stage('Running on Centos') {
 				agent {label 'centos_slave'}
 				steps {				
-					sh 'wget http://icemanxflow4.mylabserver.com/rectangles/all/${BRANCH_NAME}/rectangle_${BUILD_NUMBER}.jar'
+					sh 'wget http://icemanxflow4.mylabserver.com/rectangles/all/${BRANCH_NAME}/rectangle_${MAJOR_VERSION}.${BUILD_NUMBER}.jar'
+					sh 'java -jar rectangle_${MAJOR_VERSION}.${BUILD_NUMBER}.jar 3 4'
 				}		
 			}
 			
 			stage('Test on Debian') {
 				agent {docker 'openjdk:8u121-jre'}
 				steps {				
-					sh 'wget http://icemanxflow4.mylabserver.com/rectangles/all/${BRANCH_NAME}/rectangle_${BUILD_NUMBER}.jar'
-					sh 'java -jar rectangle_${BUILD_NUMBER}.jar 3 4'
+					sh 'wget http://icemanxflow4.mylabserver.com/rectangles/all/${BRANCH_NAME}/rectangle_${MAJOR_VERSION}.${BUILD_NUMBER}.jar'
+					sh 'java -jar rectangle_${MAJOR_VERSION}.${BUILD_NUMBER}.jar 3 4'
 				}		
 			}
 			
@@ -44,7 +48,7 @@ pipeline {
 					branch 'master'
 				}
 				steps {
-					sh 'cp /var/www/html/rectangles/all/${BRANCH_NAME}/rectangle_${BUILD_NUMBER}.jar /var/www/html/rectangles/green/ '
+					sh 'cp /var/www/html/rectangles/all/${BRANCH_NAME}/rectangle_${MAJOR_VERSION}.${BUILD_NUMBER}.jar /var/www/html/rectangles/green/ '
 				}
 			}
 			stage('Promote from Development Branch to Master') {
@@ -60,9 +64,10 @@ pipeline {
 					echo "Checking out Master Branch"
 					sh 'git checkout master'
 					echo 'Merging development into Master Branch'
-					sh 'git merge development'	
+					sh 'git merge development'
 					sh 'git push origin master '
-				}
+				}	sh "git tag rectangle-${MAJOR_VERSION}.${BUILD_NUMBER}"
+					sh 'git push origin rectangle-${MAJOR_VERSION}.${BUILD_NUMBER}'
 			}
 	}	
 }		
