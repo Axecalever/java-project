@@ -22,7 +22,7 @@ pipeline {
 			stage('deploy') {
 				agent {label 'centos_slave'}				
 				steps {				
-					sh "if ![ -d '/var/www/html/rectangles/all/${BRANCH_NAME}']; then mkdir /var/www/html/rectangles/all/${BRANCH_NAME};fi" 
+					sh "if ![ -d '/var/www/html/rectangles/all/${BRANCH_NAME}']; then mkdir /var/www/html/rectangles/all/${BRANCH_NAME}; fi" 
 					sh 'cp dist/rectangle_${MAJOR_VERSION}.${BUILD_NUMBER}.jar /var/www/html/rectangles/all/${BRANCH_NAME}'
 				}		
 			}		
@@ -64,6 +64,7 @@ pipeline {
 					sh 'git checkout development'
 					echo "Checking out Master Branch"
 					sh 'git checkout master'
+					sh 'git pull origin '
 					echo 'Merging development into Master Branch'
 					sh 'git merge development'
 					sh 'git push origin master '
