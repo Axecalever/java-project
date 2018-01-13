@@ -73,10 +73,10 @@ pipeline {
 				}
 				post {
 					success {
-						emailtext{
-							subject:"${$JOB_NAME} [${BUILD_NUMBER}]' Development promoted to master",
-							body:  """<p> '${JOB_NAME} [${BUILD_NUMBER}]' Development promoted to master":</p>
-							<p> Check console output at &QUOT;<a href='${BUILD_URL}'> ${JOB_NAME} [{$BUILD_NUMBER}] </a> &QUOT;</p>""",
+						emailext{
+							subject: "${JOB_NAME} [${BUILD_NUMBER}] Development Promoted to Master",
+							body: """<p>'${JOB_NAME} [${BUILD_NUMBER}]' Development Promoted to Master":</p>
+							<p>Check console output at &QUOT;<a href='${BUILD_URL}'>${JOB_NAME} [${BUILD_NUMBER}]</a>&QUOT;</p>""",
 							to: 'ahsansyed1992@gmail.com'
 						}
 					}
@@ -84,10 +84,10 @@ pipeline {
 			}
 			post {
 				failure {
-					emailtext{
-						body:  """<p> '${JOB_NAME} [${BUILD_NUMBER}]' Failed!!":</p>
-						subject:"${$JOB_NAME} [${BUILD_NUMBER}] Failed!",
-						<p> Check console output at &QUOT;<a href='${BUILD_URL}'> ${JOB_NAME} [{$BUILD_NUMBER}] </a> &QUOT;</p>""",
+					emailext{
+						subject: "${JOB_NAME} [${BUILD_NUMBER}] Failed!",
+						body: """<p>'${JOB_NAME} [${BUILD_NUMBER}]' Failed!":</p>
+						<p>Check console output at &QUOT;<a href='${BUILD_URL}'>${JOB_NAME} [${BUILD_NUMBER}]</a>&QUOT;</p>""",
 						to: 'ahsansyed1992@gmail.com'
 					}
 				}
