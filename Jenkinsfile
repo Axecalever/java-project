@@ -6,7 +6,7 @@ pipeline {
 	
 	stages {
 			stage("Say Hello") {
-				agent any
+				agent {label 'centos_slave'}
 				steps {
 				sayHello 'Awesome Student!'
 				}
