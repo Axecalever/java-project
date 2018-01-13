@@ -74,7 +74,7 @@ pipeline {
 				post {
 					success {
 						emailtext{
-							subject:"${$JOB_NAME} [${BUILD_NUMBER}] Development promoted to master",
+							subject:"${$JOB_NAME} [${BUILD_NUMBER}]' Development promoted to master",
 							body:  """<p> '${JOB_NAME} [${BUILD_NUMBER}]' Development promoted to master":</p>
 							<p> Check console output at &QUOT;<a href='${BUILD_URL}'> ${JOB_NAME} [{$BUILD_NUMBER}] </a> &QUOT;</p>""",
 							to: 'ahsansyed1992@gmail.com'
