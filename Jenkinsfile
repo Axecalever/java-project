@@ -85,7 +85,7 @@ pipeline {
 			post {
 				failure {
 					emailtext{
-						body:  """<p> '${JOB_NAME} [${BUILD_NUMBER}]' Failed!":</p>
+						body:  """<p> '${JOB_NAME} [${BUILD_NUMBER}]' Failed!!":</p>
 						subject:"${$JOB_NAME} [${BUILD_NUMBER}] Failed!",
 						<p> Check console output at &QUOT;<a href='${BUILD_URL}'> ${JOB_NAME} [{$BUILD_NUMBER}] </a> &QUOT;</p>""",
 						to: 'ahsansyed1992@gmail.com'
